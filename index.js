@@ -1,25 +1,38 @@
-function isPalindrome(word) {
-  // Write your algorithm here
+function isPalindrome(str) {
+  function isAlphabetic(char) {
+      return /^[a-zA-Z]$/.test(char);
+  }
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+      while (left < right && !isAlphabetic(str[left])) {
+          left++;
+      }
+      while (left < right && !isAlphabetic(str[right])) {
+          right--;
+      }
+      // Compare characters ignoring case
+      if (str[left].toLowerCase() !== str[right].toLowerCase()) {
+          return false;
+      }
+      // Move to the next characters
+      left++;
+      right--;
+  }
+  return true;
 }
-
-/* 
-  Add your pseudocode here
-*/
-
-/*
-  Add written explanation of your solution here
-*/
-
-// You can run `node index.js` to view these console logs
-if (require.main === module) {
-  // add your own custom tests in here
-  console.log("Expecting: true");
-  console.log("=>", isPalindrome("racecar"));
-
-  console.log("");
-
-  console.log("Expecting: false");
-  console.log("=>", isPalindrome("robot"));
+console.log(isPalindrome("madam")); // true
+console.log(isPalindrome("robot")); // false
+console.log(isPalindrome("")); // true
+console.log(isPalindrome("racecar")); // true
+console.log(isPalindrome("Mom")); // true
+console.log(isPalindrome("a man a plan a canal panama")); // true
+function isPalindrome(str) {
+  // Remove non-alphanumeric characters and convert to lowercase
+  const cleanStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  
+  // Compare the string with its reverse
+  return cleanStr === cleanStr.split('').reverse().join('');
 }
 
 module.exports = isPalindrome;
